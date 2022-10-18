@@ -5,6 +5,7 @@ const TodoForm = ({
   setTodoItem,
   currentFilter,
   setCurrentFilter,
+  submitNewTodo,
 }) => {
   return (
     <div>
@@ -14,7 +15,13 @@ const TodoForm = ({
         value={todoItem}
         type="text"
       />
-      <button className="mx-6 border-[1px] text-white px-8 cursor-pointer py-2 bg-gradient-to-r from-indigo-500 rounded hover:opacity-80 transition-all">
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          submitNewTodo();
+        }}
+        className="mx-6 border-[1px] text-white px-8 cursor-pointer py-2 bg-gradient-to-r from-indigo-500 rounded hover:opacity-80 transition-all"
+      >
         Add
       </button>
       <select
@@ -23,9 +30,9 @@ const TodoForm = ({
         className="mx-6 px-8 cursor-pointer rounded py-2 outline-none"
       >
         <option disabled={true}>Filter</option>
-        <option>All</option>
-        <option>Done</option>
-        <option>Todo</option>
+        <option value="all">All</option>
+        <option value="completed">Done</option>
+        <option value="incomplete">Todo</option>
       </select>
     </div>
   );
