@@ -49,18 +49,16 @@ export default function Home() {
   };
 
   const submitNewTodo = () => {
-    setTodoList((prevState) => {
-      const newTodoList = [
-        ...prevState,
-        {
-          name: todoItem,
-          completed: false,
-          date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
-          id: Date.now().toString(36) + Math.random().toString(36).substr(2),
-        },
-      ];
-      return newTodoList;
-    });
+    setTodoItem("");
+    setTodoList((prevState) => [
+      ...prevState,
+      {
+        name: todoItem,
+        completed: false,
+        date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+        id: Date.now().toString(36) + Math.random().toString(36).substr(2),
+      },
+    ]);
   };
 
   const handleIsCompleted = (id) => {
