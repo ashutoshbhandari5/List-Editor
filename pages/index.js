@@ -4,41 +4,46 @@ import TodoItem from "../components/TodoItem";
 
 export default function Home() {
   const [todoItem, setTodoItem] = useState("");
-  const [currentFilter, setCurrentFilter] = useState("All");
   const [todo, setTodoList] = useState([]);
+  const [firstRender, setFirstRender] = useState(true);
+  const [currentFilter, setCurrentFilter] = useState("all");
+  const [filteredTodos, setFilteredTodos] = useState([]);
 
   const setTodosInLocalStorage = (todos) => {
     if (window !== undefined) {
       if (todos !== null) {
+        //console.log("Setting todo");
         localStorage.setItem("todos", JSON.stringify(todos));
+        //console.log(JSON.parse(localStorage.getItem("todos")));
       } else {
         localStorage.setItem("todos", JSON.stringify([]));
       }
     }
   };
 
-  const getTodosFromLocalStorage = () => {
-    if (typeof window !== undefined) {
-      const todos = JSON.parse(localStorage.getItem("todos"));
-      if (todos) {
-        return todos;
+  const getInitialTodos = () => {
+    if (typeof window !== undefined && typeof localStorage !== undefined) {
+      const initialTodos = JSON.parse(localStorage.getItem("todos"));
+      console.log(initialTodos);
+      if (initialTodos) {
+        return initialTodos;
       }
       return [];
     }
   };
 
-  const filterTodos = (todos) => {
+  const filterTodos = () => {
     switch (currentFilter) {
       case "all":
-        return todos;
+        return todo;
         break;
 
       case "completed":
-        return todos.filter((el) => el.completed);
+        return todo.filter((el) => el.completed === true);
         break;
 
       case "incomplete":
-        return todos.filter((el) => !el.completed);
+        return todo.filter((el) => el.completed === false);
         break;
     }
   };
@@ -54,7 +59,6 @@ export default function Home() {
           id: Date.now().toString(36) + Math.random().toString(36).substr(2),
         },
       ];
-      setTodosInLocalStorage(newTodoList);
       return newTodoList;
     });
   };
@@ -75,9 +79,21 @@ export default function Home() {
     setTodoList((prevState) => prevState.filter((el) => el.id !== id));
   };
 
+  const handleFilterChange = () => {
+    const result = filterTodos();
+    setFilteredTodos(result);
+  };
+
   useEffect(() => {
-    setTodoList(() => getTodosFromLocalStorage());
-  }, []);
+    if (firstRender) {
+      console.log("check first render");
+      setTodoList(getInitialTodos());
+      setFirstRender((prevState) => !prevState);
+    } else {
+      handleFilterChange();
+      setTodosInLocalStorage(todo);
+    }
+  }, [todo, currentFilter]);
 
   return (
     <div className="p-6 relative bg-gradient-to-r from-cyan-500 to-blue-500 h-screen w-screen flex justify-center place-items-start">
@@ -87,14 +103,13 @@ export default function Home() {
           <TodoForm
             todoItem={todoItem}
             setTodoItem={setTodoItem}
-            currentFilter={currentFilter}
             setCurrentFilter={setCurrentFilter}
             submitNewTodo={submitNewTodo}
           />
         </div>
-        {todo.length > 0 && (
+        {filteredTodos.length > 0 && (
           <div className=" rounded p-4 bg-white-gradient flex flex-col place-items-start mt-20 justify-center h-full">
-            {todo.map((el, i) => (
+            {filteredTodos.map((el, i) => (
               <TodoItem
                 handleIsCompleted={handleIsCompleted}
                 deleteTodo={deleteTodo}

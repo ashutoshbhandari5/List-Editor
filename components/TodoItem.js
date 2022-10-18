@@ -12,7 +12,7 @@ const TodoItem = ({ item, handleIsCompleted, deleteTodo }) => {
         }}
         className="py-1 px-3 rounded bg-add-green"
       >
-        Done
+        {item.completed ? <strike>Done</strike> : "Done"}
       </button>
       <button
         onClick={() => deleteTodo(item.id)}
