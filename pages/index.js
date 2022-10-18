@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import TodoForm from "../components/TodoForm";
 import TodoItem from "../components/TodoItem";
 
@@ -7,14 +7,13 @@ export default function Home() {
   const [todo, setTodoList] = useState([]);
   const [firstRender, setFirstRender] = useState(true);
   const [currentFilter, setCurrentFilter] = useState("all");
-  const [filteredTodos, setFilteredTodos] = useState([]);
+
+  const filteredTodos = useMemo(() => filterTodos(), [todo, currentFilter]);
 
   const setTodosInLocalStorage = (todos) => {
     if (window !== undefined) {
       if (todos !== null) {
-        //console.log("Setting todo");
         localStorage.setItem("todos", JSON.stringify(todos));
-        //console.log(JSON.parse(localStorage.getItem("todos")));
       } else {
         localStorage.setItem("todos", JSON.stringify([]));
       }
@@ -32,7 +31,7 @@ export default function Home() {
     }
   };
 
-  const filterTodos = () => {
+  function filterTodos() {
     switch (currentFilter) {
       case "all":
         return todo;
@@ -46,7 +45,7 @@ export default function Home() {
         return todo.filter((el) => el.completed === false);
         break;
     }
-  };
+  }
 
   const submitNewTodo = () => {
     setTodoItem("");
@@ -77,21 +76,14 @@ export default function Home() {
     setTodoList((prevState) => prevState.filter((el) => el.id !== id));
   };
 
-  const handleFilterChange = () => {
-    const result = filterTodos();
-    setFilteredTodos(result);
-  };
-
   useEffect(() => {
     if (firstRender) {
-      console.log("check first render");
       setTodoList(getInitialTodos());
       setFirstRender((prevState) => !prevState);
     } else {
-      handleFilterChange();
       setTodosInLocalStorage(todo);
     }
-  }, [todo, currentFilter]);
+  }, [todo]);
 
   return (
     <div className="p-6 relative bg-gradient-to-r from-cyan-500 to-blue-500 h-screen w-screen flex justify-center place-items-start">
