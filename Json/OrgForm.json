@@ -1,0 +1,38 @@
+{
+  "heading": "Organization Form",
+  "fields": [
+    {
+      "id": "name",
+      "label": "Name",
+      "placeholder": "Organization Name",
+      "type": "text"
+    },
+    {
+      "id": "email",
+      "label": "Email",
+      "placeholder": "abcorg@example.com",
+      "type": "email"
+    },
+    {
+      "id": "count",
+      "label": "Employers Count",
+      "placeholder": "Total employers",
+      "type": "number"
+    },
+
+    {
+      "id": "address",
+      "label": "Address",
+      "placeholder": "Kathmandu",
+      "type": "text"
+    },
+    {
+      "id": "phone",
+      "label": "Phone Number",
+      "placeholder": "9899339939",
+      "required": "true",
+      "errorMessage": "Please enter your valid moblie number",
+      "type": "text"
+    }
+  ]
+}
