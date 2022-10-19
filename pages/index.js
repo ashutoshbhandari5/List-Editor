@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import TodoForm from "../components/TodoForm";
+import TodoForm from "../components/Forms/TodoForm";
 import TodoItem from "../components/TodoItem";
 import UpdateTodo from "../components/UpdateTodo";
 
@@ -88,7 +88,6 @@ export default function Home() {
         return el;
       })
     );
-    setEditTodo(null);
   };
 
   useEffect(() => {
@@ -101,9 +100,11 @@ export default function Home() {
   }, [todo]);
 
   return (
-    <div className="p-6 relative bg-gradient-to-r from-cyan-500 to-blue-500 h-screen w-screen flex justify-center place-items-start">
-      <div className="p-10">
-        <h1 className="text-6xl text-white font-mono">Next Todo List</h1>
+    <div className="p-6 relative bg-gradient-to-r from-cyan-500 to-blue-500 min-h-screen w-screen flex justify-center place-items-start">
+      <h1 className="absolute left-2 top-1 text-2xl text-white font-mono">
+        List Editor
+      </h1>
+      <div className="flex justify-around w-full">
         <div className="mt-20">
           <TodoForm
             todoItem={todoItem}
