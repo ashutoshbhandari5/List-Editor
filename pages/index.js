@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo, useState } from "react";
 import TodoForm from "../components/TodoForm";
 import TodoItem from "../components/TodoItem";
+import UpdateTodo from "../components/UpdateTodo";
 
 export default function Home() {
   const [todoItem, setTodoItem] = useState("");
   const [todo, setTodoList] = useState([]);
   const [firstRender, setFirstRender] = useState(true);
   const [currentFilter, setCurrentFilter] = useState("all");
+  const [editTodo, setEditTodo] = useState(null);
 
   const filteredTodos = useMemo(() => filterTodos(), [todo, currentFilter]);
 
@@ -76,6 +78,19 @@ export default function Home() {
     setTodoList((prevState) => prevState.filter((el) => el.id !== id));
   };
 
+  const handleTodoItemUpdate = (item, value) => {
+    const updatedTodoItem = { ...item, name: value };
+    setTodoList((prevState) =>
+      prevState.map((el) => {
+        if (el.id === updatedTodoItem.id) {
+          return updatedTodoItem;
+        }
+        return el;
+      })
+    );
+    setEditTodo(null);
+  };
+
   useEffect(() => {
     if (firstRender) {
       setTodoList(getInitialTodos());
@@ -97,17 +112,25 @@ export default function Home() {
             submitNewTodo={submitNewTodo}
           />
         </div>
-        {filteredTodos.length > 0 && (
-          <div className=" rounded p-4 bg-white-gradient flex flex-col place-items-start mt-20 justify-center h-full">
-            {filteredTodos.map((el, i) => (
-              <TodoItem
-                handleIsCompleted={handleIsCompleted}
-                deleteTodo={deleteTodo}
-                item={el}
-                key={i}
-              />
-            ))}
-          </div>
+        {editTodo ? (
+          <UpdateTodo
+            editItem={editTodo}
+            handleTodoItemUpdate={handleTodoItemUpdate}
+          />
+        ) : (
+          filteredTodos.length > 0 && (
+            <div className=" rounded p-4 bg-white-gradient flex flex-col place-items-start mt-20 justify-center h-full">
+              {filteredTodos.map((el, i) => (
+                <TodoItem
+                  handleIsCompleted={handleIsCompleted}
+                  deleteTodo={deleteTodo}
+                  setEditTodo={setEditTodo}
+                  item={el}
+                  key={i}
+                />
+              ))}
+            </div>
+          )
         )}
       </div>
     </div>
