@@ -1,16 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 import OrgEditor from "../components/Editor/OrgEditor";
-import TodoForm from "../components/Editor/TodoForm";
-import TodoItem from "../components/TodoItem";
-import UpdateTodo from "../components/UpdateTodo";
 
 export default function Home() {
-  const [listContainer, setListContainer] = useState(null);
+  const [listContainer, setListContainer] = useState({ org: [] });
   const [firstRender, setFirstRender] = useState(true);
   const [currentFilter, setCurrentFilter] = useState("all");
   const [editTodo, setEditTodo] = useState(null);
 
-  //console.log(listContainer);
+  console.log(listContainer);
 
   const getInitialList = () => {
     if (typeof window !== undefined && typeof localStorage !== undefined) {
@@ -18,14 +15,14 @@ export default function Home() {
       if (initialList) {
         return initialList;
       }
-      return [];
+      const initalState = { org: [] };
+      return initalState;
     }
   };
 
   const setListContainerInLocalStorage = (listContainer) => {
     if (window !== undefined) {
       if (listContainer !== null) {
-        console.log("check");
         localStorage.setItem("listContainer", JSON.stringify(listContainer));
       } else {
         localStorage.setItem("listContainer", JSON.stringify({ org: [] }));
@@ -33,12 +30,32 @@ export default function Home() {
     }
   };
 
+  const handleUpdateList = (type, item) => {
+    setListContainer((prevState) => {
+      let foundItem = prevState[type].find((el) => el.id === item.id);
+      foundItem = { ...foundItem, ...item };
+      const newList = prevState[type].map((el) => {
+        if (el.id === item.id) {
+          return foundItem;
+        } else {
+          return el;
+        }
+      });
+      return { ...prevState, [type]: newList };
+    });
+  };
+
+  const handleDeleteList = (id, type) => {
+    setListContainer((prevState) => {
+      const newArray = prevState[type].filter((el) => el.id !== id);
+      return { ...prevState, [type]: newArray };
+    });
+  };
+
   useEffect(() => {
-    console.log(firstRender);
     if (firstRender) {
       setListContainer(getInitialList());
       setFirstRender((prevState) => !prevState);
-      console.log("Check first render");
     } else {
       setListContainerInLocalStorage(listContainer);
     }
@@ -50,97 +67,13 @@ export default function Home() {
         List Editor
       </h1>
       <div className="mt-6 w-full">
-        <OrgEditor setListContainer={setListContainer} />
+        <OrgEditor
+          handleDeleteList={handleDeleteList}
+          listContainer={listContainer}
+          setListContainer={setListContainer}
+          handleUpdateList={handleUpdateList}
+        />
       </div>
     </div>
   );
 }
-
-// const filteredTodos = useMemo(() => filterTodos(), [todo, currentFilter]);
-
-// const setTodosInLocalStorage = (todos) => {
-//   if (window !== undefined) {
-//     if (todos !== null) {
-//       localStorage.setItem("todos", JSON.stringify(todos));
-//     } else {
-//       localStorage.setItem("todos", JSON.stringify([]));
-//     }
-//   }
-// };
-
-// const getInitialTodos = () => {
-//   if (typeof window !== undefined && typeof localStorage !== undefined) {
-//     const initialTodos = JSON.parse(localStorage.getItem("todos"));
-//     console.log(initialTodos);
-//     if (initialTodos) {
-//       return initialTodos;
-//     }
-//     return [];
-//   }
-// };
-
-// function filterTodos() {
-//   switch (currentFilter) {
-//     case "all":
-//       return todo;
-//       break;
-
-//     case "completed":
-//       return todo.filter((el) => el.completed === true);
-//       break;
-
-//     case "incomplete":
-//       return todo.filter((el) => el.completed === false);
-//       break;
-//   }
-// }
-
-// const submitNewTodo = () => {
-//   setTodoItem("");
-//   setTodoList((prevState) => [
-//     ...prevState,
-//     {
-//       name: todoItem,
-//       completed: false,
-//       date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
-//       id: Date.now().toString(36) + Math.random().toString(36).substr(2),
-//     },
-//   ]);
-// };
-
-// const handleIsCompleted = (id) => {
-//   setTodoList((prevState) =>
-//     prevState.map((el) => {
-//       if (el.id === id) {
-//         return { ...el, completed: true };
-//       } else {
-//         return el;
-//       }
-//     })
-//   );
-// };
-
-// const deleteTodo = (id) => {
-//   setTodoList((prevState) => prevState.filter((el) => el.id !== id));
-// };
-
-// const handleTodoItemUpdate = (item, value) => {
-//   const updatedTodoItem = { ...item, name: value };
-//   setTodoList((prevState) =>
-//     prevState.map((el) => {
-//       if (el.id === updatedTodoItem.id) {
-//         return updatedTodoItem;
-//       }
-//       return el;
-//     })
-//   );
-// };
-
-// useEffect(() => {
-//   if (firstRender) {
-//     setTodoList(getInitialTodos());
-//     setFirstRender((prevState) => !prevState);
-//   } else {
-//     setTodosInLocalStorage(todo);
-//   }
-// }, [todo]);

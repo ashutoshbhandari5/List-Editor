@@ -29,7 +29,7 @@
     {
       "id": "phone",
       "label": "Phone Number",
-      "placeholder": "9899339939",
+      "placeholder": "+977 917 453 7834",
       "required": "true",
       "errorMessage": "Please enter your valid moblie number",
       "type": "text"

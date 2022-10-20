@@ -7,7 +7,7 @@ const Input = ({ type, value, handleChange, className, placeholder, id }) => {
       value={value}
       className={className}
       placeholder={placeholder}
-      onChange={(e) => handleChange(value, id)}
+      onChange={(e) => handleChange(e.target.value, id)}
     />
   );
 };
