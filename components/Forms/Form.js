@@ -1,11 +1,11 @@
 import React from "react";
 import Elements from "../Common/Elements";
+import OrgForm from "../../Json/OrgForm.json";
 
-const OrgForm = ({ formInputJson, inputGroup, handleChange }) => {
-  console.log(inputGroup);
+const Form = ({ inputGroup, handleChange }) => {
   return (
     <form className="gap-5 grid grid-cols-2">
-      {formInputJson.fields.map((el, i) => (
+      {OrgForm.fields.map((el, i) => (
         <Elements
           key={i}
           field={el}
@@ -17,4 +17,4 @@ const OrgForm = ({ formInputJson, inputGroup, handleChange }) => {
   );
 };
 
-export default OrgForm;
+export default Form;

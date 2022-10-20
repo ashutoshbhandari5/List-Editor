@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
-import OrgEditor from "../components/Editor/OrgEditor";
+import Editor from "../components/Editor/Editor";
 
 export default function Home() {
-  const [listContainer, setListContainer] = useState({ org: [] });
+  const [listContainer, setListContainer] = useState({});
   const [firstRender, setFirstRender] = useState(true);
+
+  const orgInitialState = {
+    name: "",
+    phone: "",
+    email: "",
+    address: "",
+    phone: "",
+    count: "",
+  };
 
   const getInitialList = () => {
     if (typeof window !== undefined && typeof localStorage !== undefined) {
@@ -11,8 +20,7 @@ export default function Home() {
       if (initialList) {
         return initialList;
       }
-      const initalState = { org: [] };
-      return initalState;
+      return {};
     }
   };
 
@@ -21,7 +29,7 @@ export default function Home() {
       if (listContainer !== null) {
         localStorage.setItem("listContainer", JSON.stringify(listContainer));
       } else {
-        localStorage.setItem("listContainer", JSON.stringify({ org: [] }));
+        localStorage.setItem("listContainer", JSON.stringify({}));
       }
     }
   };
@@ -63,11 +71,13 @@ export default function Home() {
         List Editor
       </h1>
       <div className="mt-6 w-full">
-        <OrgEditor
+        <Editor
           handleDeleteList={handleDeleteList}
+          type={"org"}
           listContainer={listContainer}
           setListContainer={setListContainer}
           handleUpdateList={handleUpdateList}
+          initialState={orgInitialState}
         />
       </div>
     </div>
