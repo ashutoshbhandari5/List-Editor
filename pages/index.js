@@ -25,28 +25,6 @@ export default function Home() {
     }
   };
 
-  const handleUpdateList = (item) => {
-    setListContainer((prevState) => {
-      let foundItem = prevState.find((el) => el.id === item.id);
-      foundItem = { ...foundItem, ...item };
-      const newList = prevState.map((el) => {
-        if (el.id === item.id) {
-          return foundItem;
-        } else {
-          return el;
-        }
-      });
-      return [...newList];
-    });
-  };
-
-  const handleDeleteList = (id) => {
-    setListContainer((prevState) => {
-      const newArray = prevState.filter((el) => el.id !== id);
-      return [...newArray];
-    });
-  };
-
   useEffect(() => {
     if (firstRender) {
       setListContainer(getInitialList());

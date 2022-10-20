@@ -1,29 +1,46 @@
 import React, { useState } from "react";
 import Button from "../Common/Button";
 import { classnames } from "../../utils/classnames";
-import UpdateList from "../UpdateList";
+import Item from "../Item";
 import Form from "../Forms/Form";
 
-const Editor = ({
-  setListContainer,
-  listContainer,
-  handleDeleteList,
-  handleUpdateList,
-}) => {
-  const [formState, setFormState] = useState({});
+const Editor = ({ listContainer, setListContainer }) => {
+  const [formPayLoad, setFormPayload] = useState({});
   const [update, setUpdate] = useState(false);
   const handleChange = (value, id) => {
-    setFormState((prevState) => ({ ...prevState, [id]: value }));
+    setFormPayload((prevState) => ({ ...prevState, [id]: value }));
   };
 
-  const handleUpdate = (item) => {
+  const createUpdateState = (item) => {
     setUpdate(true);
-    setFormState(item);
+    setFormPayload(item);
   };
 
-  const handleSubmit = () => {
+  const handleUpdateList = (item) => {
+    setListContainer((prevState) => {
+      let foundItem = prevState.find((el) => el.id === item.id);
+      foundItem = { ...foundItem, ...item };
+      const newList = prevState.map((el) => {
+        if (el.id === item.id) {
+          return foundItem;
+        } else {
+          return el;
+        }
+      });
+      return [...newList];
+    });
+  };
+
+  const handleDeleteList = (id) => {
+    setListContainer((prevState) => {
+      const newArray = prevState.filter((el) => el.id !== id);
+      return [...newArray];
+    });
+  };
+
+  const SubmitNewItem = () => {
     if (update) {
-      handleUpdateList(formState);
+      handleUpdateList(formPayLoad);
       setUpdate(false);
     } else {
       setListContainer((prevState) => {
@@ -42,20 +59,20 @@ const Editor = ({
   return (
     <div className="flex w-full justify-around">
       <div>
-        <Form inputGroup={formState} handleChange={handleChange} />
+        <Form inputGroup={formPayLoad} handleChange={handleChange} />
         <Button
           name={"Submit"}
           className={`${classnames.submit} mt-5 ml-10 items-center`}
-          handleClick={handleSubmit}
+          handleClick={SubmitNewItem}
         />
       </div>
       <div className="grid grid-cols-3 gap-1 ">
         {listContainer.length > 0 &&
           listContainer.map((el, i) => {
             return (
-              <UpdateList
+              <Item
                 handleDeleteList={handleDeleteList}
-                handleUpdate={handleUpdate}
+                handleUpdate={createUpdateState}
                 item={el}
                 key={i}
               />

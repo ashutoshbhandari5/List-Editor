@@ -2,7 +2,7 @@ import React from "react";
 import { classnames } from "../utils/classnames";
 import Button from "./Common/Button";
 
-const UpdateList = ({ item, handleDeleteList, handleUpdate }) => {
+const Item = ({ item, handleDeleteList, handleUpdate }) => {
   const deleteListItem = () => {
     handleDeleteList(item.id);
   };
@@ -40,4 +40,4 @@ const UpdateList = ({ item, handleDeleteList, handleUpdate }) => {
     </div>
   );
 };
-export default UpdateList;
+export default Item;
