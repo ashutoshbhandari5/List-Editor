@@ -1,13 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import OrgEditor from "../components/Editor/OrgEditor";
 
 export default function Home() {
   const [listContainer, setListContainer] = useState({ org: [] });
   const [firstRender, setFirstRender] = useState(true);
-  const [currentFilter, setCurrentFilter] = useState("all");
-  const [editTodo, setEditTodo] = useState(null);
-
-  console.log(listContainer);
 
   const getInitialList = () => {
     if (typeof window !== undefined && typeof localStorage !== undefined) {
