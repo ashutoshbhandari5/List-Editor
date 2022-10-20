@@ -1,10 +1,10 @@
 {
-  "heading": "Organization Form",
+  "heading": "Form",
   "fields": [
     {
       "id": "name",
       "label": "Name",
-      "placeholder": "Organization Name",
+      "placeholder": " Name",
       "type": "text"
     },
     {

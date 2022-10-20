@@ -2,17 +2,8 @@ import React, { useEffect, useState } from "react";
 import Editor from "../components/Editor/Editor";
 
 export default function Home() {
-  const [listContainer, setListContainer] = useState({});
+  const [listContainer, setListContainer] = useState([]);
   const [firstRender, setFirstRender] = useState(true);
-
-  const orgInitialState = {
-    name: "",
-    phone: "",
-    email: "",
-    address: "",
-    phone: "",
-    count: "",
-  };
 
   const getInitialList = () => {
     if (typeof window !== undefined && typeof localStorage !== undefined) {
@@ -20,7 +11,7 @@ export default function Home() {
       if (initialList) {
         return initialList;
       }
-      return {};
+      return [];
     }
   };
 
@@ -29,30 +20,30 @@ export default function Home() {
       if (listContainer !== null) {
         localStorage.setItem("listContainer", JSON.stringify(listContainer));
       } else {
-        localStorage.setItem("listContainer", JSON.stringify({}));
+        localStorage.setItem("listContainer", JSON.stringify([]));
       }
     }
   };
 
-  const handleUpdateList = (type, item) => {
+  const handleUpdateList = (item) => {
     setListContainer((prevState) => {
-      let foundItem = prevState[type].find((el) => el.id === item.id);
+      let foundItem = prevState.find((el) => el.id === item.id);
       foundItem = { ...foundItem, ...item };
-      const newList = prevState[type].map((el) => {
+      const newList = prevState.map((el) => {
         if (el.id === item.id) {
           return foundItem;
         } else {
           return el;
         }
       });
-      return { ...prevState, [type]: newList };
+      return [...newList];
     });
   };
 
-  const handleDeleteList = (id, type) => {
+  const handleDeleteList = (id) => {
     setListContainer((prevState) => {
-      const newArray = prevState[type].filter((el) => el.id !== id);
-      return { ...prevState, [type]: newArray };
+      const newArray = prevState.filter((el) => el.id !== id);
+      return [...newArray];
     });
   };
 
@@ -73,11 +64,9 @@ export default function Home() {
       <div className="mt-6 w-full">
         <Editor
           handleDeleteList={handleDeleteList}
-          type={"org"}
           listContainer={listContainer}
           setListContainer={setListContainer}
           handleUpdateList={handleUpdateList}
-          initialState={orgInitialState}
         />
       </div>
     </div>

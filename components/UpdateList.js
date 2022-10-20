@@ -26,14 +26,18 @@ const UpdateList = ({ item, handleDeleteList, handleUpdate }) => {
         />
       </div>
       <div className="mt-5">
-        <h1>Name - {item.name}</h1>
-        <h1>Email - {item.email}</h1>
-        <h1>Address - {item.address}</h1>
-        <h1>Phone - {item.phone}</h1>
-        <h1>Employees Count - {item.count}</h1>
+        {Object.keys(item).map((el, i) => {
+          if (el === "id") {
+            return;
+          }
+          return (
+            <h1 key={i}>
+              {el} - {item[el]}
+            </h1>
+          );
+        })}
       </div>
     </div>
   );
 };
-
 export default UpdateList;
