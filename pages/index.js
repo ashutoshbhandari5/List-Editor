@@ -41,10 +41,8 @@ export default function Home() {
       </h1>
       <div className="mt-6 w-full">
         <Editor
-          handleDeleteList={handleDeleteList}
           listContainer={listContainer}
           setListContainer={setListContainer}
-          handleUpdateList={handleUpdateList}
         />
       </div>
     </div>
