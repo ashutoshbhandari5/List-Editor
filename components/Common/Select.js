@@ -1,14 +1,19 @@
 import React from "react";
 
-const Select = ({ handleChange, id, options }) => {
+const Select = ({ id, options, handleChange, value }) => {
   return (
-    <Select id={id} onChange={(e) => handleChange(e.target.value, id)}>
-      {options.map((el, i) => (
-        <option disabled={el.disabled} value={el.value} key={i}>
-          {el.name}
+    <select
+      className="mb-4 focus:outline-none rounded py-1 px-3"
+      id={id}
+      value={value}
+      onChange={(e) => handleChange(e.target.value, id)}
+    >
+      {options.map((option, i) => (
+        <option disabled={option.disabled} value={option.value} key={i}>
+          {option.name}
         </option>
       ))}
-    </Select>
+    </select>
   );
 };
 

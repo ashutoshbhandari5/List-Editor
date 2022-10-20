@@ -1,0 +1,49 @@
+{
+  "heading": "Health Form",
+  "fields": [
+    {
+      "id": "name",
+      "label": "Name",
+      "placeholder": " Name",
+      "type": "text"
+    },
+    {
+      "id": "email",
+      "label": "Email",
+      "placeholder": "abcorg@example.com",
+      "type": "email"
+    },
+    {
+      "id": "bed count",
+      "label": "bed Count",
+      "placeholder": "Total Bed",
+      "type": "number"
+    },
+
+    {
+      "id": "address",
+      "label": "Address",
+      "placeholder": "Kathmandu",
+      "type": "text"
+    },
+    {
+      "id": "management",
+      "label": "Management",
+      "type": "select",
+      "options": [
+        {
+          "name": "Private",
+          "value": "private"
+        },
+        {
+          "name": "Public",
+          "value": "public"
+        },
+        {
+          "name": "Community",
+          "value": "community"
+        }
+      ]
+    }
+  ]
+}
