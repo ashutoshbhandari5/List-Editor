@@ -4,7 +4,7 @@ import Button from "./Common/Button";
 
 const UpdateList = ({ item, handleDeleteList, handleUpdate }) => {
   const deleteListItem = () => {
-    handleDeleteList(item.id, "org");
+    handleDeleteList(item.id);
   };
 
   const updateListItem = () => {
