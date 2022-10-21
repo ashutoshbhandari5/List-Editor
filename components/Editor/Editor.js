@@ -16,6 +16,7 @@ const Editor = ({ listContainer, setListContainer }) => {
   const createUpdateState = (item) => {
     setUpdate(true);
     setFormPayload(item);
+    setFormType(item.type);
   };
 
   const handleUpdateList = (item) => {
@@ -41,6 +42,11 @@ const Editor = ({ listContainer, setListContainer }) => {
   };
 
   const SubmitNewItem = () => {
+    let newFormPayLoad;
+    Object.keys(formPayLoad).forEach((el) => {
+      newFormPayLoad = { ...newFormPayLoad, [el]: "" };
+    });
+    setFormPayload(newFormPayLoad);
     if (update) {
       handleUpdateList(formPayLoad);
       setUpdate(false);
@@ -52,6 +58,7 @@ const Editor = ({ listContainer, setListContainer }) => {
           {
             ...formPayLoad,
             id: Date.now().toString(36) + Math.random().toString(36).substr(2),
+            type: formType,
           },
         ];
       });
