@@ -2,6 +2,7 @@ import React from "react";
 import Select from "./Select";
 import Input from "./Input";
 import { classnames } from "../../utils/classnames";
+import InputButton from "./InputButton";
 
 const Elements = ({ field, value, handleChange }) => {
   const { type, placeholder, id, options } = field;
@@ -9,7 +10,10 @@ const Elements = ({ field, value, handleChange }) => {
     switch (type) {
       case "select":
         return <Select id handleChange={handleChange} options={options} />;
-        break;
+      case "multiple":
+        return (
+          <InputButton elements={field.elements} handleChange={handleChange} />
+        );
       default:
         return (
           <Input

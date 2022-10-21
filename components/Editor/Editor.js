@@ -9,8 +9,26 @@ const Editor = ({ listContainer, setListContainer }) => {
   const [formPayLoad, setFormPayload] = useState({});
   const [update, setUpdate] = useState(false);
   const [formType, setFormType] = useState("org");
+  console.log(formPayLoad);
   const handleChange = (value, id) => {
-    setFormPayload((prevState) => ({ ...prevState, [id]: value }));
+    if (id.match(/_/g)) {
+      setFormPayload((prevState) => {
+        const previousEmployees = prevState.employees;
+        if (previousEmployees === undefined) {
+          return {
+            ...prevState,
+            employees: [value],
+          };
+        } else {
+          return {
+            ...prevState,
+            employees: [...previousEmployees, value],
+          };
+        }
+      });
+    } else {
+      setFormPayload((prevState) => ({ ...prevState, [id]: value }));
+    }
   };
 
   const createUpdateState = (item) => {
