@@ -50,7 +50,7 @@ const Editor = ({ listContainer, setListContainer }) => {
         return [
           ...prevState,
           {
-            ...formState,
+            ...formPayLoad,
             id: Date.now().toString(36) + Math.random().toString(36).substr(2),
           },
         ];

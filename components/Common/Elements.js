@@ -4,6 +4,7 @@ import Input from "./Input";
 import { classnames } from "../../utils/classnames";
 
 const Elements = ({ field, value, handleChange }) => {
+  console.log(classnames.formInput);
   const { type, placeholder, id, options } = field;
   const renderElement = () => {
     switch (type) {
