@@ -2,6 +2,7 @@ import React from "react";
 import Select from "./Select";
 import Input from "./Input";
 import { classnames } from "../../utils/classnames";
+import Editor from "../Editor/Editor";
 
 const Elements = ({ field, value, handleChange }) => {
   const { type, placeholder, id, options } = field;
@@ -10,7 +11,12 @@ const Elements = ({ field, value, handleChange }) => {
       case "select":
         return <Select id handleChange={handleChange} options={options} />;
       case "multiple":
-        break;
+        return (
+          <Editor
+            formJson={field.fields}
+            listContainer={listContainer.employees}
+          />
+        );
       default:
         return (
           <Input

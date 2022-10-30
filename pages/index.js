@@ -5,7 +5,7 @@ import OrgForm from "../Json/OrgForm.json";
 import HealthForm from "../Json/HealthForm.json";
 
 export default function Home() {
-  const [listContainer, setListContainer] = useState([]);
+  const [listContainer, setListContainer] = useState([{}]);
   const [firstRender, setFirstRender] = useState(true);
   const [formType, setFormType] = useState("org");
   const formJson = formType === "org" ? OrgForm : HealthForm;
