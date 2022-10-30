@@ -5,10 +5,9 @@ import Item from "../Item";
 import Form from "../Forms/Form";
 
 const Editor = ({ listContainer, setListContainer, formJson }) => {
-  const [formPayLoad, setFormPayload] = useState({ employees: [] });
+  const [formPayLoad, setFormPayload] = useState({});
   const [update, setUpdate] = useState(false);
   const handleChange = (value, id) => {
-    console.log(value, id);
     setFormPayload((prevState) => ({ ...prevState, [id]: value }));
   };
 
@@ -76,7 +75,8 @@ const Editor = ({ listContainer, setListContainer, formJson }) => {
         />
       </div>
       <div className="grid grid-cols-3 gap-1 ">
-        {listContainer.length > 0 &&
+        {listContainer &&
+          listContainer.length > 0 &&
           listContainer.map((el, i) => {
             return (
               <Item

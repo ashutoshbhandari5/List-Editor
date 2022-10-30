@@ -15,7 +15,9 @@ const Elements = ({ field, value, handleChange }) => {
           <Editor
             formJson={field}
             listContainer={value}
-            setListContainer={(callback) => handleChange(callback(value), id)}
+            setListContainer={(callback) => {
+              console.log(value);
+            }}
           />
         );
       default:
