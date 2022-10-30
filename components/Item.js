@@ -29,12 +29,23 @@ const Item = ({ item, handleDeleteList, handleUpdate }) => {
         {Object.keys(item).map((el, i) => {
           if (el === "id") {
             return;
+          } else if (el !== "employees") {
+            return (
+              <h1 key={i}>
+                {el} - {item[el]}
+              </h1>
+            );
+          } else {
+            // return (
+            //   <div key={i}>
+            //     <h3>Employees</h3>
+            //     {el.map((employees, i) => (
+            //       <h1 key={i}>{employees}</h1>
+            //     ))}
+            //   </div>
+            // );
+            console.log(el);
           }
-          return (
-            <h1 key={i}>
-              {el} - {item[el]}
-            </h1>
-          );
         })}
       </div>
     </div>

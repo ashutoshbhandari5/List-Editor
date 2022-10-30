@@ -8,7 +8,24 @@ const Editor = ({ listContainer, setListContainer, formJson, formType }) => {
   const [formPayLoad, setFormPayload] = useState({});
   const [update, setUpdate] = useState(false);
   const handleChange = (value, id) => {
-    setFormPayload((prevState) => ({ ...prevState, [id]: value }));
+    if (id.match(/_/g)) {
+      setFormPayload((prevState) => {
+        const previousEmployees = prevState.employees;
+        if (previousEmployees === undefined) {
+          return {
+            ...prevState,
+            employees: [value],
+          };
+        } else {
+          return {
+            ...prevState,
+            employees: [...previousEmployees, value],
+          };
+        }
+      });
+    } else {
+      setFormPayload((prevState) => ({ ...prevState, [id]: value }));
+    }
   };
 
   const createUpdateState = (item) => {
