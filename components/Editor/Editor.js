@@ -4,7 +4,7 @@ import { classnames } from "../../utils/classnames";
 import Item from "../Item";
 import Form from "../Forms/Form";
 
-const Editor = ({ listContainer, setListContainer, formJson, formType }) => {
+const Editor = ({ listContainer, setListContainer, formJson }) => {
   const [formPayLoad, setFormPayload] = useState({});
   const [update, setUpdate] = useState(false);
   const handleChange = (value, id) => {
@@ -66,13 +66,11 @@ const Editor = ({ listContainer, setListContainer, formJson, formType }) => {
       setUpdate(false);
     } else {
       setListContainer((prevState) => {
-        console.log(prevState);
         return [
           ...prevState,
           {
             ...formPayLoad,
             id: Date.now().toString(36) + Math.random().toString(36).substr(2),
-            type: formType,
           },
         ];
       });
