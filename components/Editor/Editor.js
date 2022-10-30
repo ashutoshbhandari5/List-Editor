@@ -5,33 +5,15 @@ import Item from "../Item";
 import Form from "../Forms/Form";
 
 const Editor = ({ listContainer, setListContainer, formJson }) => {
-  const [formPayLoad, setFormPayload] = useState({});
+  const [formPayLoad, setFormPayload] = useState({ employees: [] });
   const [update, setUpdate] = useState(false);
   const handleChange = (value, id) => {
-    if (id.match(/_/g)) {
-      setFormPayload((prevState) => {
-        const previousEmployees = prevState.employees;
-        if (previousEmployees === undefined) {
-          return {
-            ...prevState,
-            employees: [value],
-          };
-        } else {
-          return {
-            ...prevState,
-            employees: [...previousEmployees, value],
-          };
-        }
-      });
-    } else {
-      setFormPayload((prevState) => ({ ...prevState, [id]: value }));
-    }
+    setFormPayload((prevState) => ({ ...prevState, [id]: value }));
   };
 
   const createUpdateState = (item) => {
     setUpdate(true);
     setFormPayload(item);
-    setFormType(item.type);
   };
 
   const handleUpdateList = (item) => {

@@ -36,17 +36,13 @@
     },
     {
       "type": "multiple",
-      "schema": [
+      "heading": "Employee Form",
+      "fields": [
         {
           "id": "employee",
           "label": "Employee Name",
           "placeholder": "Employee Name",
           "type": "text"
-        },
-        {
-          "id": "addEmployee",
-          "label": "Add Employee",
-          "type": "Submit"
         }
       ]
     }
