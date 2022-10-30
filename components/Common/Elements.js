@@ -11,12 +11,12 @@ const Elements = ({ field, value, handleChange }) => {
       case "select":
         return <Select id handleChange={handleChange} options={options} />;
       case "multiple":
-        return (
-          <Editor
-            formJson={field.fields}
-            listContainer={listContainer.employees}
-          />
-        );
+      // return (
+      //   <Editor
+      //     formJson={field.fields}
+      //     listContainer={listContainer.employees}
+      //   />
+      // );
       default:
         return (
           <Input
