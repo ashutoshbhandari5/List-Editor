@@ -9,7 +9,7 @@ export default function Home() {
     {
       name: "Ocean",
       email: "ocean@example.com",
-      count: 3,
+      count: 1,
       phone: "9836363636",
       employees: [{ name: "employee1", id: "1" }],
     },
