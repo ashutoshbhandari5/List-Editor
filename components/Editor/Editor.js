@@ -4,7 +4,7 @@ import { classnames } from "../../utils/classnames";
 import Item from "../Item";
 import Form from "../Forms/Form";
 
-const Editor = ({ listContainer, setListContainer, formJson }) => {
+const Editor = ({ listContainer, setListContainer, formJson, formType }) => {
   const [formPayLoad, setFormPayload] = useState({});
   const [update, setUpdate] = useState(false);
   const handleChange = (value, id) => {

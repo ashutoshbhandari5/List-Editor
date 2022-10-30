@@ -65,6 +65,7 @@ export default function Home() {
       </div>
       <div className="mt-6 w-full">
         <Editor
+          formType={formType}
           formJson={formJson}
           listContainer={listContainer}
           setListContainer={setListContainer}
