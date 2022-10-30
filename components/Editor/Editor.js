@@ -8,6 +8,7 @@ const Editor = ({ listContainer, setListContainer, formJson }) => {
   const [formPayLoad, setFormPayload] = useState({ employees: [] });
   const [update, setUpdate] = useState(false);
   const handleChange = (value, id) => {
+    console.log(value, id);
     setFormPayload((prevState) => ({ ...prevState, [id]: value }));
   };
 

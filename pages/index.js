@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Select from "../components/Common/Select";
-import Editor from "../components/Editor/Editor";
 import OrgForm from "../Json/OrgForm.json";
 import HealthForm from "../Json/HealthForm.json";
+import dynamic from "next/dynamic";
+
+const Editor = dynamic(() => import("../components/Editor/Editor"), {
+  ssr: false,
+});
 
 export default function Home() {
-  const [listContainer, setListContainer] = useState([
-    {
-      name: "Ocean",
-      email: "ocean@example.com",
-      count: 1,
-      phone: "9836363636",
-      employees: [{ name: "employee1", id: "1" }],
-    },
-  ]);
+  const [listContainer, setListContainer] = useState([]);
   const [firstRender, setFirstRender] = useState(true);
   const [formType, setFormType] = useState("org");
   const formJson = formType === "org" ? OrgForm : HealthForm;
+
+  console.log(listContainer);
 
   const getInitialList = () => {
     if (typeof window !== undefined && typeof localStorage !== undefined) {
