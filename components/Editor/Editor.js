@@ -3,12 +3,10 @@ import Button from "../Common/Button";
 import { classnames } from "../../utils/classnames";
 import Item from "../Item";
 import Form from "../Forms/Form";
-import Select from "../Common/Select";
 
-const Editor = ({ listContainer, setListContainer }) => {
+const Editor = ({ listContainer, setListContainer, formJson }) => {
   const [formPayLoad, setFormPayload] = useState({});
   const [update, setUpdate] = useState(false);
-  const [formType, setFormType] = useState("org");
   const handleChange = (value, id) => {
     setFormPayload((prevState) => ({ ...prevState, [id]: value }));
   };
@@ -46,7 +44,6 @@ const Editor = ({ listContainer, setListContainer }) => {
     Object.keys(formPayLoad).forEach((el) => {
       newFormPayLoad = { ...newFormPayLoad, [el]: "" };
     });
-    setFormPayload(newFormPayLoad);
     if (update) {
       handleUpdateList(formPayLoad);
       setUpdate(false);
@@ -63,30 +60,14 @@ const Editor = ({ listContainer, setListContainer }) => {
         ];
       });
     }
+    setFormPayload(newFormPayLoad);
   };
-
-  const formTypeOptions = [
-    {
-      name: "Org",
-      value: "org",
-    },
-    {
-      name: "Health",
-      value: "health",
-    },
-  ];
 
   return (
     <div className="flex w-full justify-around">
       <div>
-        <Select
-          handleChange={setFormType}
-          value={formType}
-          id={"formType"}
-          options={formTypeOptions}
-        />
         <Form
-          type={formType}
+          formJson={formJson}
           inputGroup={formPayLoad}
           handleChange={handleChange}
         />
