@@ -12,7 +12,7 @@ const Elements = ({ field, value, handleChange }) => {
         return <Select id handleChange={handleChange} options={options} />;
       case "multiple":
         return (
-          <InputButton elements={field.elements} handleChange={handleChange} />
+          <InputButton elements={field.schema} handleChange={handleChange} />
         );
       default:
         return (

@@ -36,7 +36,7 @@
     },
     {
       "type": "multiple",
-      "elements": [
+      "schema": [
         {
           "id": "employee",
           "label": "Employee Name",
