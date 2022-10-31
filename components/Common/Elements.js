@@ -16,7 +16,8 @@ const Elements = ({ field, value, handleChange }) => {
             formJson={field}
             listContainer={value}
             setListContainer={(callback) => {
-              handleChange(callback(value), id);
+              console.log(callback(value));
+              //handleChange(callback(value), id);
             }}
           />
         );

@@ -79,7 +79,7 @@ const Editor = ({
           handleClick={SubmitNewItem}
         />
       </div>
-      <div className="grid grid-cols-3 gap-1 ">
+      {/* <div className="grid grid-cols-3 gap-1 ">
         {listContainer &&
           listContainer.length > 0 &&
           listContainer.map((el, i) => {
@@ -92,7 +92,7 @@ const Editor = ({
               />
             );
           })}
-      </div>
+      </div> */}
     </div>
   );
 };
