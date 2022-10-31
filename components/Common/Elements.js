@@ -2,7 +2,7 @@ import React from "react";
 import Select from "./Select";
 import Input from "./Input";
 import { classnames } from "../../utils/classnames";
-import InputButton from "./InputButton";
+import Editor from "../Editor/Editor";
 
 const Elements = ({ field, value, handleChange }) => {
   const { type, placeholder, id, options } = field;
@@ -12,7 +12,14 @@ const Elements = ({ field, value, handleChange }) => {
         return <Select id handleChange={handleChange} options={options} />;
       case "multiple":
         return (
-          <InputButton elements={field.elements} handleChange={handleChange} />
+          <Editor
+            formJson={field}
+            listContainer={value}
+            setListContainer={(callback) => {
+              console.log(callback(value));
+              //handleChange(callback(value), id);
+            }}
+          />
         );
       default:
         return (

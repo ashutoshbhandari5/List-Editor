@@ -3,6 +3,7 @@ import { classnames } from "../utils/classnames";
 import Button from "./Common/Button";
 
 const Item = ({ item, handleDeleteList, handleUpdate }) => {
+  console.log(item);
   const deleteListItem = () => {
     handleDeleteList(item.id);
   };

@@ -33,22 +33,6 @@
       "required": "true",
       "errorMessage": "Please enter your valid moblie number",
       "type": "text"
-    },
-    {
-      "type": "multiple",
-      "elements": [
-        {
-          "id": "employee",
-          "label": "Employee Name",
-          "placeholder": "Employee Name",
-          "type": "text"
-        },
-        {
-          "id": "addEmployee",
-          "label": "Add Employee",
-          "type": "Submit"
-        }
-      ]
     }
   ]
 }

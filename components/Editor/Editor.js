@@ -3,38 +3,22 @@ import Button from "../Common/Button";
 import { classnames } from "../../utils/classnames";
 import Item from "../Item";
 import Form from "../Forms/Form";
-import Select from "../Common/Select";
 
-const Editor = ({ listContainer, setListContainer }) => {
-  const [formPayLoad, setFormPayload] = useState({});
+const Editor = ({
+  setListContainer,
+  formJson,
+  listContainer,
+  defaultFormPayload,
+}) => {
+  const [formPayLoad, setFormPayload] = useState(null);
   const [update, setUpdate] = useState(false);
-  const [formType, setFormType] = useState("org");
-  console.log(formPayLoad);
   const handleChange = (value, id) => {
-    if (id.match(/_/g)) {
-      setFormPayload((prevState) => {
-        const previousEmployees = prevState.employees;
-        if (previousEmployees === undefined) {
-          return {
-            ...prevState,
-            employees: [value],
-          };
-        } else {
-          return {
-            ...prevState,
-            employees: [...previousEmployees, value],
-          };
-        }
-      });
-    } else {
-      setFormPayload((prevState) => ({ ...prevState, [id]: value }));
-    }
+    setFormPayload((prevState) => ({ ...prevState, [id]: value }));
   };
 
   const createUpdateState = (item) => {
     setUpdate(true);
     setFormPayload(item);
-    setFormType(item.type);
   };
 
   const handleUpdateList = (item) => {
@@ -60,62 +44,53 @@ const Editor = ({ listContainer, setListContainer }) => {
   };
 
   const SubmitNewItem = () => {
-    let newFormPayLoad;
-    Object.keys(formPayLoad).forEach((el) => {
-      newFormPayLoad = { ...newFormPayLoad, [el]: "" };
-    });
-    setFormPayload(newFormPayLoad);
     if (update) {
       handleUpdateList(formPayLoad);
       setUpdate(false);
     } else {
       setListContainer((prevState) => {
-        console.log(prevState);
         return [
           ...prevState,
           {
             ...formPayLoad,
-            id: Date.now().toString(36) + Math.random().toString(36).substr(2),
-            type: formType,
           },
         ];
       });
     }
+    setFormPayload(null);
   };
-
-  const formTypeOptions = [
-    {
-      name: "Org",
-      value: "org",
-    },
-    {
-      name: "Health",
-      value: "health",
-    },
-  ];
 
   return (
     <div className="flex w-full justify-around">
-      <div>
-        <Select
-          handleChange={setFormType}
-          value={formType}
-          id={"formType"}
-          options={formTypeOptions}
-        />
-        <Form
-          type={formType}
-          inputGroup={formPayLoad}
-          handleChange={handleChange}
-        />
+      <div className="absolute text-xl text-white left-36">
         <Button
-          name={"Submit"}
-          className={`${classnames.submit} mt-5 ml-10 items-center`}
-          handleClick={SubmitNewItem}
+          name={"Add New Item"}
+          handleClick={() => setFormPayload(defaultFormPayload)}
         />
       </div>
+      {formPayLoad && (
+        <div>
+          <Form
+            formJson={formJson}
+            inputGroup={formPayLoad}
+            handleChange={handleChange}
+            toggleShowForm={toggleShowForm}
+          />
+          <Button
+            name={"Submit"}
+            className={`${classnames.submit} mt-5 ml-10 items-center`}
+            handleClick={SubmitNewItem}
+          />
+          <Button
+            name={"Cancel Edit"}
+            className={`${classnames.submit} mt-5 ml-10 items-center`}
+            handleClick={() => setFormPayload(null)}
+          />
+        </div>
+      )}{" "}
       <div className="grid grid-cols-3 gap-1 ">
-        {listContainer.length > 0 &&
+        {listContainer &&
+          listContainer.length > 0 &&
           listContainer.map((el, i) => {
             return (
               <Item

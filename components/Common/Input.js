@@ -5,7 +5,7 @@ const Input = ({ type, value, handleChange, className, placeholder, id }) => {
     <input
       type={type}
       value={value}
-      className={className}
+      className={`${className} max-h-7 max-w-[285px]`}
       placeholder={placeholder}
       onChange={(e) => handleChange(e.target.value, id)}
     />
