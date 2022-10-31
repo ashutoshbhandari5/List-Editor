@@ -33,19 +33,6 @@
       "required": "true",
       "errorMessage": "Please enter your valid moblie number",
       "type": "text"
-    },
-    {
-      "type": "multiple",
-      "heading": "Employee Form",
-      "id": "employees",
-      "fields": [
-        {
-          "id": "employees",
-          "label": "Employee Name",
-          "placeholder": "Employee Name",
-          "type": "text"
-        }
-      ]
     }
   ]
 }

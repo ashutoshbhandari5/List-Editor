@@ -13,9 +13,7 @@ export default function Home() {
   const [firstRender, setFirstRender] = useState(true);
   const [formType, setFormType] = useState("org");
   const formJson = formType === "org" ? OrgForm : HealthForm;
-  const defaultFormPayload = {
-    employees: [],
-  };
+  console.log(listContainer);
 
   const getInitialList = () => {
     if (typeof window !== undefined && typeof localStorage !== undefined) {
@@ -39,7 +37,6 @@ export default function Home() {
 
   useEffect(() => {
     if (firstRender) {
-      // setListContainer(getInitialList());
       setFirstRender((prevState) => !prevState);
     } else {
       setListContainerInLocalStorage(listContainer);
