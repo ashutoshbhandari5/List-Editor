@@ -5,8 +5,7 @@ import Item from "../Item";
 import Form from "../Forms/Form";
 
 const Editor = ({ setListContainer, formJson, defaultFormPayload }) => {
-  console.log(defaultFormPayload);
-  const [formPayLoad, setFormPayload] = useState(null);
+  const [formPayLoad, setFormPayload] = useState({});
   const [update, setUpdate] = useState(false);
   const handleChange = (value, id) => {
     setFormPayload((prevState) => ({ ...prevState, [id]: value }));

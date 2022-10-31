@@ -9,7 +9,7 @@ const Form = ({ inputGroup, handleChange, formJson, setListContainer }) => {
           setListContainer={setListContainer}
           key={i}
           field={el}
-          value={inputGroup[el.id]}
+          value={inputGroup[el.id] || ""}
           handleChange={handleChange}
         />
       ))}
