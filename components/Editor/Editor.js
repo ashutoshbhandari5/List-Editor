@@ -90,6 +90,11 @@ const Editor = ({
             className={`${classnames.submit} mt-5 ml-10 items-center`}
             handleClick={SubmitNewItem}
           />
+          <Button
+            name={"Cancel Edit"}
+            className={`${classnames.submit} mt-5 ml-10 items-center`}
+            handleClick={toggleShowForm}
+          />
         </div>
       )}{" "}
       <div className="grid grid-cols-3 gap-1 ">
