@@ -10,18 +10,23 @@ const Editor = ({
   listContainer,
   defaultFormPayload,
 }) => {
-  const [formPayLoad, setFormPayload] = useState({});
+  const [formPayLoad, setFormPayload] = useState(null);
   const [update, setUpdate] = useState(false);
-  const [showForm, setShowForm] = useState(false);
   const handleChange = (value, id) => {
     setFormPayload((prevState) => ({ ...prevState, [id]: value }));
   };
 
-  const toggleShowForm = () => setShowForm((prevState) => !prevState);
+  const toggleShowForm = () => {
+    setFormPayload((prevState) => {
+      if (prevState) {
+        return null;
+      }
+      return defaultFormPayload();
+    });
+  };
 
   const createUpdateState = (item) => {
     setUpdate(true);
-    setShowForm(true);
     setFormPayload(item);
   };
 
@@ -70,11 +75,11 @@ const Editor = ({
     <div className="flex w-full justify-around">
       <div className="absolute text-xl text-white left-36">
         <Button
-          name={showForm ? "Close" : "Open Form"}
+          name={formPayLoad ? "Close" : "Open Form"}
           handleClick={toggleShowForm}
         />
       </div>
-      {showForm && (
+      {formPayLoad && (
         <div>
           <Form
             formJson={formJson}
