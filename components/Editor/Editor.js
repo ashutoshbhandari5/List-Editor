@@ -39,10 +39,7 @@ const Editor = ({ setListContainer, formJson, defaultFormPayload }) => {
   };
 
   const SubmitNewItem = () => {
-    let newFormPayLoad;
-    Object.keys(formPayLoad).forEach((el) => {
-      newFormPayLoad = { ...newFormPayLoad, [el]: "" };
-    });
+    let newFormPayLoad = defaultFormPayload();
     if (update) {
       handleUpdateList(formPayLoad);
       setUpdate(false);
@@ -52,7 +49,7 @@ const Editor = ({ setListContainer, formJson, defaultFormPayload }) => {
           ...prevState,
           {
             ...formPayLoad,
-            ...defaultFormPayload(),
+            ...newFormPayLoad,
           },
         ];
       });
