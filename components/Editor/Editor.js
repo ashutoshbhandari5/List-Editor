@@ -10,7 +10,7 @@ const Editor = ({
   formJson,
   defaultFormPayload,
 }) => {
-  const [formPayLoad, setFormPayload] = useState(defaultFormPayload);
+  const [formPayLoad, setFormPayload] = useState({ ...defaultFormPayload });
   const [update, setUpdate] = useState(false);
   const handleChange = (value, id) => {
     setFormPayload((prevState) => ({ ...prevState, [id]: value }));
