@@ -53,7 +53,6 @@ const Editor = ({
   };
 
   const SubmitNewItem = () => {
-    let newFormPayLoad = defaultFormPayload();
     if (update) {
       handleUpdateList(formPayLoad);
       setUpdate(false);
@@ -63,12 +62,11 @@ const Editor = ({
           ...prevState,
           {
             ...formPayLoad,
-            ...newFormPayLoad,
           },
         ];
       });
     }
-    setFormPayload(newFormPayLoad);
+    setFormPayload(null);
   };
 
   return (
