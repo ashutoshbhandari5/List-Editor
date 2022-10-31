@@ -72,7 +72,13 @@ export default function Home() {
       </div>
       <div className="mt-6 w-full">
         <Editor
-          defaultFormPayload={defaultFormPayload}
+          defaultFormPayload={() => {
+            return {
+              id:
+                Date.now().toString(36) + Math.random().toString(36).substr(2),
+              employees: [],
+            };
+          }}
           formJson={formJson}
           listContainer={listContainer}
           setListContainer={setListContainer}
