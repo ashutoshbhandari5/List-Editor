@@ -16,15 +16,6 @@ const Editor = ({
     setFormPayload((prevState) => ({ ...prevState, [id]: value }));
   };
 
-  const toggleShowForm = () => {
-    setFormPayload((prevState) => {
-      if (prevState) {
-        return null;
-      }
-      return defaultFormPayload();
-    });
-  };
-
   const createUpdateState = (item) => {
     setUpdate(true);
     setFormPayload(item);
@@ -73,8 +64,8 @@ const Editor = ({
     <div className="flex w-full justify-around">
       <div className="absolute text-xl text-white left-36">
         <Button
-          name={formPayLoad ? "Close" : "Add New Item"}
-          handleClick={toggleShowForm}
+          name={"Add New Item"}
+          handleClick={() => setFormPayload(defaultFormPayload)}
         />
       </div>
       {formPayLoad && (
@@ -93,7 +84,7 @@ const Editor = ({
           <Button
             name={"Cancel Edit"}
             className={`${classnames.submit} mt-5 ml-10 items-center`}
-            handleClick={toggleShowForm}
+            handleClick={() => setFormPayload(null)}
           />
         </div>
       )}{" "}
