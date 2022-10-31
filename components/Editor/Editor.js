@@ -73,7 +73,7 @@ const Editor = ({
     <div className="flex w-full justify-around">
       <div className="absolute text-xl text-white left-36">
         <Button
-          name={formPayLoad ? "Close" : "Open Form"}
+          name={formPayLoad ? "Close" : "Add New Item"}
           handleClick={toggleShowForm}
         />
       </div>
