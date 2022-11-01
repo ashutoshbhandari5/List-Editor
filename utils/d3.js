@@ -76,11 +76,15 @@ export class d3 {
 
   key(name) {
     const allKeys = this.nestedData.map((el) => el[name].toLowerCase());
-    const reduceKey = this.nestedData.reduce((prev, curr) => {
-      if (prev != curr[name]) {
-        return curr;
-      }
-    });
+    const reduceKey = this.nestedData.reduce((storage, item) => {
+      const group = item[name].toLowerCase();
+
+      storage[group] = storage[group] || [];
+
+      storage[group].push(item);
+
+      return storage;
+    }, {});
     console.log(reduceKey);
     const uniqKeys = [...new Set(allKeys)];
     const newData = uniqKeys.map((el) => {
