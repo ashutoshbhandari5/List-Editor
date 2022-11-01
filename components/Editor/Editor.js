@@ -12,6 +12,7 @@ const Editor = ({
 }) => {
   const [formPayLoad, setFormPayload] = useState(null);
   const [update, setUpdate] = useState(false);
+  console.log(formPayLoad);
   const handleChange = (value, id) => {
     setFormPayload((prevState) => ({ ...prevState, [id]: value }));
   };
@@ -74,7 +75,6 @@ const Editor = ({
             formJson={formJson}
             inputGroup={formPayLoad}
             handleChange={handleChange}
-            toggleShowForm={toggleShowForm}
           />
           <Button
             name={"Submit"}

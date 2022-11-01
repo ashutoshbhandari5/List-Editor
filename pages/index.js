@@ -3,6 +3,8 @@ import Select from "../components/Common/Select";
 import OrgForm from "../Json/OrgForm.json";
 import HealthForm from "../Json/HealthForm.json";
 import dynamic from "next/dynamic";
+import { d3 } from "../utils/d3";
+import ranking from "../Json/Rankings.json";
 
 const Editor = dynamic(() => import("../components/Editor/Editor"), {
   ssr: false,
@@ -14,6 +16,24 @@ export default function Home() {
   const [formType, setFormType] = useState("org");
   const formJson = formType === "org" ? OrgForm : HealthForm;
   console.log(listContainer);
+
+  const d3Feature = new d3();
+  const maxPoints = d3Feature.max(ranking, (data) => {
+    return data.points;
+  });
+  const minPoints = d3Feature.min(ranking, (data) => {
+    return data.points;
+  });
+  const extentPoints = d3Feature.extent(ranking, (data) => {
+    return data.points;
+  });
+  const averagePoints = d3Feature.mean(ranking, (data) => {
+    return data.points;
+  });
+  // console.log(minPoints);
+  // console.log(maxPoints);
+  // console.log(extentPoints);
+  console.log(averagePoints);
 
   const getInitialList = () => {
     if (typeof window !== undefined && typeof localStorage !== undefined) {
