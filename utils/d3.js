@@ -75,24 +75,22 @@ export class d3 {
   }
 
   key(name) {
-    const allKeys = this.nestedData.map((el) => el[name].toLowerCase());
     const reduceKey = this.nestedData.reduce((storage, item) => {
       const group = item[name].toLowerCase();
 
-      storage[group] = storage[group] || [];
+      storage[group] = storage[group] || { key: item[name], values: [] };
 
-      storage[group].push(item);
+      storage[group].values.push(item);
 
       return storage;
     }, {});
-    console.log(reduceKey);
-    const uniqKeys = [...new Set(allKeys)];
-    const newData = uniqKeys.map((el) => {
+
+    const newData = Object.keys(reduceKey).map((el) => {
       return {
         key: el,
         values: this.nestedData.filter((data) => {
-          if (data[name].toLowerCase() === el) {
-            return el;
+          if (data[name].toLowerCase() === el.toLowerCase()) {
+            return data;
           }
         }),
       };

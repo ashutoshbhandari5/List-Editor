@@ -15,7 +15,7 @@ const rankings = () => {
 
   const value = d3Feature.nest(ranking).key("team");
 
-  console.log(value.nestedData);
+  //console.log(value.nestedData);
 
   return <div>rankings</div>;
 };
