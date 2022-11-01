@@ -82,7 +82,25 @@ export class d3 {
         values: this.nestedData.filter((el) => el[name] === value),
       };
     });
+    this.nestedData = newData;
+    return this;
+  }
 
-    console.log(newData);
+  rollUp(nameOrFunction) {
+    let values;
+    if (typeof nameOrFunction === "function") {
+      values = nameOrFunction();
+    } else {
+      values = nameOrFunction;
+    }
+
+    const newData = this.nestedData.map((el) => {
+      return {
+        key: el.key,
+        values: values,
+      };
+    });
+    this.nestedData = newData;
+    return this;
   }
 }

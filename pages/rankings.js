@@ -13,7 +13,12 @@ const rankings = () => {
   const ascending = d3Feature.ascending(ranking, "points");
   const descending = d3Feature.descending(ranking, "points");
 
-  const value = d3Feature.nest(ranking).key("team");
+  const value = d3Feature
+    .nest(ranking)
+    .key("team")
+    .rollUp(d3Feature.max(ranking, "points"));
+
+  console.log(value.nestedData);
 
   return <div>rankings</div>;
 };
