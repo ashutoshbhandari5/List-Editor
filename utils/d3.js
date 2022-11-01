@@ -75,11 +75,16 @@ export class d3 {
   }
 
   key(name) {
-    const newData = this.nestedData.map((el) => {
-      const value = el[name];
+    const allKeys = this.nestedData.map((el) => el[name].toLowerCase());
+    const uniqKeys = [...new Set(allKeys)];
+    const newData = uniqKeys.map((el) => {
       return {
-        key: el[name],
-        values: this.nestedData.filter((el) => el[name] === value),
+        key: el,
+        values: this.nestedData.filter((data) => {
+          if (data[name].toLowerCase() === el) {
+            return el;
+          }
+        }),
       };
     });
     this.nestedData = newData;
