@@ -1,37 +1,35 @@
 export class d3 {
-  min(data, callback) {
-    const minValueArray = data.map((el) => {
-      return Number(callback(el));
-    });
+  constructor() {
+    this.nestedData = [];
+  }
+
+  getFilteredArrayNumber = (data, name) => data.map((el) => Number(el[name]));
+
+  min(data, name) {
+    const minValueArray = this.getFilteredArrayNumber(data, name);
     return Math.min(...minValueArray);
   }
 
-  max(data, callback) {
-    const minValueArray = data.map((el) => {
-      return Number(callback(el));
-    });
+  max(data, name) {
+    const minValueArray = this.getFilteredArrayNumber(data, name);
     return Math.max(...minValueArray);
   }
 
-  extent(data, callback) {
-    const minValue = this.min(data, callback);
-    const maxValue = this.max(data, callback);
+  extent(data, name) {
+    const minValue = this.min(data, name);
+    const maxValue = this.max(data, name);
     return [minValue, maxValue];
   }
 
-  mean(data, callback) {
-    const averageValueArray = data.map((el) => {
-      return Number(callback(el));
-    });
+  mean(data, name) {
+    const averageValueArray = this.getFilteredArrayNumber(data, name);
     const average =
       averageValueArray.reduce((a, b) => a + b) / averageValueArray.length;
     return Math.round(average * 100) / 100;
   }
 
-  median(data, callback) {
-    const averageValueArray = data.map((el) => {
-      return Number(callback(el));
-    });
+  median(data, name) {
+    const averageValueArray = this.getFilteredArrayNumber(data, name);
 
     averageValueArray.sort((a, b) => a - b);
 
@@ -42,10 +40,8 @@ export class d3 {
     return (averageValueArray[half - 1] + averageValueArray[half]) / 2.0;
   }
 
-  deviation(data, callback) {
-    let deviationArray = data.map((el) => {
-      return Number(callback(el));
-    });
+  deviation(data, name) {
+    let deviationArray = this.getFilteredArrayNumber(data, name);
     let mean =
       deviationArray.reduce((acc, curr) => {
         return acc + curr;
@@ -57,5 +53,36 @@ export class d3 {
     let sum = deviationArray.reduce((acc, curr) => acc + curr, 0);
 
     return Math.sqrt(sum / deviationArray.length);
+  }
+
+  ascending(data, sortBy) {
+    const sortedData = [...data].sort((a, b) =>
+      a[sortBy] > b[sortBy] ? 1 : -1
+    );
+    return sortedData;
+  }
+  descending(data, sortBy) {
+    const sortedData = [...data].sort((a, b) =>
+      a[sortBy] < b[sortBy] ? 1 : -1
+    );
+    return sortedData;
+  }
+
+  //Nesting and grouping of data
+  nest(data) {
+    this.nestedData = data;
+    return this;
+  }
+
+  key(name) {
+    const newData = this.nestedData.map((el) => {
+      const value = el[name];
+      return {
+        key: el[name],
+        values: this.nestedData.filter((el) => el[name] === value),
+      };
+    });
+
+    console.log(newData);
   }
 }

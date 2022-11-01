@@ -4,30 +4,16 @@ import { d3 } from "../utils/d3";
 
 const rankings = () => {
   const d3Feature = new d3();
-  const maxPoints = d3Feature.max(ranking, (data) => {
-    return data.points;
-  });
-  const minPoints = d3Feature.min(ranking, (data) => {
-    return data.points;
-  });
-  const extentPoints = d3Feature.extent(ranking, (data) => {
-    return data.points;
-  });
-  const averagePoints = d3Feature.mean(ranking, (data) => {
-    return data.points;
-  });
-  const median = d3Feature.median(ranking, (data) => {
-    return data.points;
-  });
-  const deviation = d3Feature.deviation(ranking, (data) => {
-    return data.points;
-  });
-  // console.log(minPoints);
-  // console.log(maxPoints);
-  // console.log(extentPoints);
-  //console.log(averagePoints);
-  //console.log(median);
-  console.log(deviation);
+  const maxPoints = d3Feature.max(ranking, "points");
+  const minwins = d3Feature.min(ranking, "wins");
+  const extentMatches = d3Feature.extent(ranking, "matchs");
+  const averagePoints = d3Feature.mean(ranking, "points");
+  const median = d3Feature.median(ranking, "points");
+  const deviation = d3Feature.deviation(ranking, "draws");
+  const ascending = d3Feature.ascending(ranking, "points");
+  const descending = d3Feature.descending(ranking, "points");
+
+  const value = d3Feature.nest(ranking).key("team");
 
   return <div>rankings</div>;
 };
