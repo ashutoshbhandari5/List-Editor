@@ -15,25 +15,6 @@ export default function Home() {
   const [firstRender, setFirstRender] = useState(true);
   const [formType, setFormType] = useState("org");
   const formJson = formType === "org" ? OrgForm : HealthForm;
-  console.log(listContainer);
-
-  const d3Feature = new d3();
-  const maxPoints = d3Feature.max(ranking, (data) => {
-    return data.points;
-  });
-  const minPoints = d3Feature.min(ranking, (data) => {
-    return data.points;
-  });
-  const extentPoints = d3Feature.extent(ranking, (data) => {
-    return data.points;
-  });
-  const averagePoints = d3Feature.mean(ranking, (data) => {
-    return data.points;
-  });
-  // console.log(minPoints);
-  // console.log(maxPoints);
-  // console.log(extentPoints);
-  console.log(averagePoints);
 
   const getInitialList = () => {
     if (typeof window !== undefined && typeof localStorage !== undefined) {
