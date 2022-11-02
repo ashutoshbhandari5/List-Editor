@@ -113,6 +113,8 @@ export class d3 {
         values: values,
       };
     });
+
+    console.log(newData);
     this.nestedData = newData;
     return this;
   }
