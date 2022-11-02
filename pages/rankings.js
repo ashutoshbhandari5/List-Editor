@@ -16,7 +16,12 @@ const rankings = () => {
   const value = d3Feature
     .nest(ranking)
     .key("team")
-    .rollUp(d3Feature.max(ranking, "points"));
+    .rollUp((data) => {
+      return {
+        max: d3Feature.max(data, "points"),
+        min: d3Feature.min(data, "points"),
+      };
+    });
 
   console.log(value.nestedData);
 
