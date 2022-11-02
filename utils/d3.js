@@ -100,20 +100,11 @@ export class d3 {
   }
 
   rollUp(nameOrFunction) {
-    let result;
     const isFunction = typeof nameOrFunction === "function";
-    if (isFunction) {
-      result = this.nestedData.map((el) => {
-        return nameOrFunction(el.values);
-      });
-    } else {
-      values = nameOrFunction;
-    }
-
     const newData = this.nestedData.map((el, i) => {
       return {
         key: el.key,
-        values: isFunction ? result[i] : nameOrFunction,
+        values: isFunction ? { ...nameOrFunction(el.values) } : nameOrFunction,
       };
     });
     this.nestedData = newData;
