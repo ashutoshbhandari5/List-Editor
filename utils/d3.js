@@ -88,11 +88,7 @@ export class d3 {
     const newData = Object.keys(reduceKey).map((el) => {
       return {
         key: el,
-        values: this.nestedData.filter((data) => {
-          if (data[name].toLowerCase() === el.toLowerCase()) {
-            return data;
-          }
-        }),
+        values: reduceKey[el].values,
       };
     });
     this.nestedData = newData;
@@ -104,7 +100,7 @@ export class d3 {
     const newData = this.nestedData.map((el, i) => {
       return {
         key: el.key,
-        values: isFunction ? { ...nameOrFunction(el.values) } : nameOrFunction,
+        values: isFunction ? nameOrFunction(el.values) : nameOrFunction,
       };
     });
     this.nestedData = newData;
