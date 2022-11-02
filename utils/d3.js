@@ -77,21 +77,12 @@ export class d3 {
   key(name) {
     const reduceKey = this.nestedData.reduce((storage, item) => {
       const group = item[name].toLowerCase();
-
       storage[group] = storage[group] || { key: item[name], values: [] };
-
       storage[group].values.push(item);
-
       return storage;
     }, {});
 
-    const newData = Object.keys(reduceKey).map((el) => {
-      return {
-        key: el,
-        values: reduceKey[el].values,
-      };
-    });
-    this.nestedData = newData;
+    this.nestedData = Object.values(reduceKey);
     return this;
   }
 
